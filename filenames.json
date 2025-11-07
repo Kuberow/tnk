@@ -1,7 +1,7 @@
 [
   {
-    "file": "make.txt",
-    "display": "Example File 1"
+    "file": "shell",
+    "display": "Linux shell made with lua."
   },
   {
     "file": "make.txt",
