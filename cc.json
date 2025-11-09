@@ -1,5 +1,5 @@
 [
-  { "display": "TnK Setup Script", "file": "setup.sh" },
+  { "display": "TnK Logo", "file": "tnk.bimg" },
   { "display": "TnK Client Archive", "file": "client.zip" },
   { "display": "Example Config", "file": "config.ini" }
 ]
