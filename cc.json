@@ -1,5 +1,5 @@
 [
-  { "display": "TnK Logo", "file": "tnk.bimg" },
+  { "display": "TnK Logo", "file": "tnk.lua" },
   { "display": "TnK Client Archive", "file": "client.zip" },
   { "display": "Example Config", "file": "config.ini" }
 ]
