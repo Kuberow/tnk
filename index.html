@@ -10,7 +10,6 @@
       margin: 0;
       padding: 0;
     }
-
     header {
       background-color: #298DE6;
       color: white;
@@ -18,7 +17,6 @@
       text-align: center;
       position: relative;
     }
-
     header h1 {
       font-size: 36px;
       font-weight: bold;
@@ -26,22 +24,20 @@
       letter-spacing: 2px;
       margin-bottom: 10px;
     }
-
     header img {
       max-width: 100px;
       position: absolute;
       left: 20px;
       top: 10px;
     }
-
     section {
-      max-width: 800px;
-      margin: 20px auto;
+      max-width: none;
+      margin: 20px 20px 20px 20px;
       padding: 20px;
-      text-align: center;
+      text-align: left;
       position: relative;
+      min-height: 300px;
     }
-
     .button {
       background-color: #298DE6; 
       color: white;
@@ -55,17 +51,15 @@
       border-radius: 5px; 
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
       transition: background-color 0.3s, color 0.3s, box-shadow 0.3s; 
-      position: absolute;
-      right: -480px;
-      top: 80%;
-      transform: translateY(-50%);
+      position: fixed;
+      right: 20px;
+      top: 150px;
+      z-index: 10;
     }
-
     .button:hover {
       background-color: #297CD5; 
       box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2); 
     }
-
     /* New button beside and slightly lower */
     .button-secondary {
       background-color: #298DE6; 
@@ -80,17 +74,129 @@
       border-radius: 5px; 
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
       transition: background-color 0.3s, color 0.3s, box-shadow 0.3s; 
-      position: absolute;
-      right: -480px;
-      top: 220%;
-      transform: translateY(-50%);
+      position: fixed;
+      right: 20px;
+      top: 220px;
+      z-index: 10;
     }
-
     .button-secondary:hover {
       background-color: #297CD5;
       box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
     }
-
+    
+    /* Image viewer modal (Discord-like) */
+    .image-modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.95);
+      animation: fadeIn 0.2s;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    
+    .modal-content {
+      display: flex;
+      height: 100%;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      flex-direction: row;
+      gap: 30px;
+    }
+    
+    .modal-image-container {
+      max-width: 60%;
+      max-height: 90%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .modal-image-container img {
+      max-width: 100%;
+      max-height: 90vh;
+      object-fit: contain;
+      border-radius: 8px;
+    }
+    
+    .modal-info {
+      background-color: rgba(30, 30, 30, 0.9);
+      color: white;
+      padding: 20px;
+      border-radius: 8px;
+      max-width: 350px;
+      width: 350px;
+      text-align: left;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+    
+    .modal-info h3 {
+      margin: 0 0 10px 0;
+      color: #298DE6;
+      font-size: 20px;
+    }
+    
+    .modal-info p {
+      margin: 5px 0;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+    
+    .modal-info strong {
+      color: #aaa;
+    }
+    
+    .close-modal {
+      position: absolute;
+      top: 20px;
+      right: 35px;
+      color: #f1f1f1;
+      font-size: 40px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+    
+    .close-modal:hover {
+      color: #298DE6;
+    }
+    
+    .image-thumbnail {
+      width: 200px;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 8px;
+      cursor: pointer;
+      margin: 10px;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    }
+    
+    .image-thumbnail:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+    
+    .gallery-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-start;
+      margin-top: 40px;
+      gap: 10px;
+      position: relative;
+      z-index: 1;
+      margin-left: 20px;
+    }
+    
     footer {
       background-color: #298DE6;
       color: white;
@@ -107,24 +213,111 @@
     <img src="logo.png" alt="LOGO">
     <h1>TnK</h1>
   </header>
-
   <section>
     <button class="button" onclick="Download()">Downloads</button>
     <button class="button-secondary" onclick="OpenMore()">CC Programs</button>
+    
+    <div class="gallery-grid" id="galleryGrid"></div>
   </section>
-
+  
+  <!-- Discord-like Image Modal -->
+  <div id="imageModal" class="image-modal" onclick="closeModal(event)">
+    <span class="close-modal" onclick="closeModal(event)">&times;</span>
+    <div class="modal-content">
+      <div class="modal-image-container">
+        <img id="modalImage" src="" alt="">
+      </div>
+      <div class="modal-info" id="modalInfo"></div>
+    </div>
+  </div>
+  
   <footer>
     © 2025 TnK. All rights reserved.
   </footer>
-
   <script>
+    let imageData = [];
+
+    async function loadImageList() {
+      try {
+        const response = await fetch('loc/list.json');
+        imageData = await response.json();
+        
+        const gallery = document.getElementById('galleryGrid');
+        imageData.forEach((item, index) => {
+          const img = document.createElement('img');
+          img.src = 'loc/' + item.filename;
+          img.alt = item.name || item.filename;
+          img.className = 'image-thumbnail';
+          img.onclick = () => openModal(index);
+          gallery.appendChild(img);
+        });
+      } catch (error) {
+        console.error('Error loading image list:', error);
+      }
+    }
+
+    function openModal(index) {
+      const item = imageData[index];
+      const modal = document.getElementById('imageModal');
+      const modalImage = document.getElementById('modalImage');
+      const modalInfo = document.getElementById('modalInfo');
+      
+      modalImage.src = 'loc/' + item.filename;
+      
+      let infoHTML = '';
+      
+      if (item.name) {
+        infoHTML += '<h3>' + item.name + '</h3>';
+      }
+      
+      if (item.description) {
+        infoHTML += '<p>' + item.description + '</p>';
+      }
+      if (item.date) {
+        infoHTML += '<p><strong>Date:</strong> ' + item.date + '</p>';
+      }
+      if (item.category) {
+        infoHTML += '<p><strong>Category:</strong> ' + item.category + '</p>';
+      }
+      if (item.tags && item.tags.length > 0) {
+        infoHTML += '<p><strong>Tags:</strong> ' + item.tags.join(', ') + '</p>';
+      }
+      
+      for (let key in item) {
+        if (!['filename', 'name', 'description', 'date', 'category', 'tags'].includes(key)) {
+          infoHTML += '<p><strong>' + key.charAt(0).toUpperCase() + key.slice(1) + ':</strong> ' + item[key] + '</p>';
+        }
+      }
+      
+      modalInfo.innerHTML = infoHTML;
+      modal.style.display = 'block';
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal(event) {
+      const modal = document.getElementById('imageModal');
+      if (event.target === modal || event.target.className === 'close-modal') {
+        modal.style.display = 'none';
+        document.body.style.overflow = 'auto';
+      }
+    }
+
+    document.addEventListener('keydown', function(event) {
+      if (event.key === 'Escape') {
+        const modal = document.getElementById('imageModal');
+        modal.style.display = 'none';
+        document.body.style.overflow = 'auto';
+      }
+    });
+
     function Download() {
       window.location.href = 'downloads.html';
     }
-
+    
     function OpenMore() {
       window.location.href = 'cc.html';
     }
+
+    loadImageList();
   </script>
 </body></html>
-
