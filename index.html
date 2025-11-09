@@ -5,14 +5,14 @@
   <style>
     body {
       font-family: 'Arial', sans-serif;
-      background-color: #f0f0f0; /* Light grey background */
-      color: #333; /* Dark text color */
+      background-color: #f0f0f0;
+      color: #333;
       margin: 0;
       padding: 0;
     }
 
     header {
-      background-color: #298DE6; /* Green header background */
+      background-color: #298DE6;
       color: white;
       padding: 20px;
       text-align: center;
@@ -20,62 +20,85 @@
     }
 
     header h1 {
-      font-size: 36px; /* Larger font size */
-      font-weight: bold; /* Bold font weight */
-      text-transform: uppercase; /* Uppercase text */
-      letter-spacing: 2px; /* Spacing between letters */
-      margin-bottom: 10px; /* Add some spacing below the heading */
+      font-size: 36px;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 10px;
     }
 
     header img {
-      max-width: 100px; /* Adjust the size of your logo */
+      max-width: 100px;
       position: absolute;
       left: 20px;
       top: 10px;
     }
 
     section {
-	  margin-top:38px;
-	  width:100%;
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 20px;
       text-align: center;
       position: relative;
     }
 
-.button {
-  background-color: #298DE6; 
-  color: white;
-  padding: 14px 28px;
-  font-size: 18px;
-  font-weight: bold;
-  text-transform: uppercase; 
-  letter-spacing: 1px; 
-  cursor: pointer;
-  border: none;
-  border-radius: 5px; 
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
-  transition: background-color 0.3s, color 0.3s, box-shadow 0.3s; 
-
-  position: absolute;
-  right: 50px; /* adjust this value to move it slightly off-screen or overlap */
-  top: 80%;     /* centers it vertically (optional) */
-  transform: translateY(-50%);
-}
-
-
+    .button {
+      background-color: #298DE6; 
+      color: white;
+      padding: 14px 28px;
+      font-size: 18px;
+      font-weight: bold;
+      text-transform: uppercase; 
+      letter-spacing: 1px; 
+      cursor: pointer;
+      border: none;
+      border-radius: 5px; 
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+      transition: background-color 0.3s, color 0.3s, box-shadow 0.3s; 
+      position: absolute;
+      right: -480px;
+      top: 80%;
+      transform: translateY(-50%);
+    }
 
     .button:hover {
       background-color: #297CD5; 
       box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2); 
     }
 
+    /* New button beside and slightly lower */
+    .button-secondary {
+      background-color: #298DE6; 
+      color: white;
+      padding: 14px 28px;
+      font-size: 18px;
+      font-weight: bold;
+      text-transform: uppercase; 
+      letter-spacing: 1px; 
+      cursor: pointer;
+      border: none;
+      border-radius: 5px; 
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+      transition: background-color 0.3s, color 0.3s, box-shadow 0.3s; 
+      position: absolute;
+      right: -480px;
+      top: 220%;
+      transform: translateY(-50%);
+    }
+
+    .button-secondary:hover {
+      background-color: #297CD5;
+      box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+    }
+
     footer {
-      background-color: #298DE6; /* Green footer background */
+      background-color: #298DE6;
       color: white;
       text-align: center;
       padding: 10px;
       position: fixed;
       width: 100%;
-      bottom: 0px;
+      bottom: 0;
     }
   </style>
 </head>
@@ -86,23 +109,22 @@
   </header>
 
   <section>
-    <!-- Your additional content goes here -->
-
-    <!-- Add the buttons here -->
     <button class="button" onclick="Download()">Downloads</button>
+    <button class="button-secondary" onclick="OpenMore()">CC Programs</button>
   </section>
 
   <footer>
     © 2025 TnK. All rights reserved.
   </footer>
 
-  <!-- Add the script for the new button -->
-  
   <script>
     function Download() {
       window.location.href = 'downloads.html';
     }
+
+    function OpenMore() {
+      window.location.href = 'cc.html';
+    }
   </script>
-
-
 </body></html>
+

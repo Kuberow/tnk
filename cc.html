@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TnK Programs</title>
+<style>
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f0f0f0;
+  color: #333;
+  margin: 0;
+  padding: 0;
+  padding-bottom: 60px;
+}
+header {
+  background-color: #298DE6;
+  color: white;
+  padding: 20px;
+  text-align: center;
+  position: relative;
+}
+header h1 {
+  font-size: 36px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 10px;
+}
+header img {
+  max-width: 100px;
+  position: absolute;
+  left: 20px;
+  top: 10px;
+}
+.container {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 20px;
+}
+.downloads-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+.downloads-header h2 {
+  font-size: 28px;
+  color: #298DE6;
+  margin: 0;
+}
+.loading {
+  text-align: center;
+  padding: 40px;
+  font-size: 18px;
+  color: #666;
+}
+.error {
+  text-align: center;
+  padding: 40px;
+  font-size: 18px;
+  color: #d32f2f;
+}
+.download-item {
+  background: white;
+  border-radius: 8px;
+  padding: 25px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s;
+}
+.download-item:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+.download-info {
+  margin-bottom: 15px;
+}
+.download-name {
+  font-size: 20px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 8px;
+}
+.download-filename {
+  font-size: 14px;
+  color: #888;
+  font-family: monospace;
+}
+.command-box {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+textarea {
+  width: 100%;
+  height: 60px;
+  resize: none;
+  padding: 8px;
+  font-family: monospace;
+  border-radius: 5px;
+  border: 1px solid #aaa;
+  background: #f8f8f8;
+  margin-bottom: 8px;
+}
+.copy-button {
+  background-color: #298DE6;
+  color: white;
+  padding: 10px;
+  font-weight: bold;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, box-shadow 0.3s;
+  width: 100%;
+}
+.copy-button:hover {
+  background-color: #297CD5;
+}
+.back-button {
+  background-color: #666;
+  color: white;
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: bold;
+  text-transform: uppercase;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+  display: block;
+  position: absolute;
+  right: 10px;
+  top: 120%;
+  transform: translateY(-50%);
+}
+.back-button:hover {
+  background-color: #555;
+}
+footer {
+  background-color: #298DE6;
+  color: white;
+  text-align: center;
+  padding: 10px;
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+}
+</style>
+</head>
+<body>
+<header>
+  <img src="logo.png" alt="LOGO">
+  <h1>TnK Programs</h1>
+  <button class="back-button" onclick="window.location.href='index.html'">← Back</button>
+</header>
+
+<div class="container">
+  <div class="downloads-header">
+    <h2>Available Files</h2>
+  </div>
+
+  <div id="downloads-list" class="downloads-list">
+    <div class="loading">Loading files...</div>
+  </div>
+</div>
+
+<footer>
+  © 2025 TnK. All rights reserved.
+</footer>
+
+<script>
+async function loadDownloads() {
+  const downloadsList = document.getElementById('downloads-list');
+
+  try {
+    const response = await fetch('cc.json');
+    if (!response.ok) throw new Error('Could not load filenames.json');
+
+    const files = await response.json();
+
+    if (files.length === 0) {
+      downloadsList.innerHTML = '<div class="error">No files available.</div>';
+      return;
+    }
+
+    downloadsList.innerHTML = files.map(item => {
+      const path = `cc/${item.file}`;
+      const command = `wget run https://tnk.lifetheuniverseandeverything.co.uk/${path}`;
+      return `
+        <div class="download-item">
+          <div class="download-info">
+            <div class="download-name">${item.display}</div>
+            <div class="download-filename">${item.file}</div>
+          </div>
+          <div class="command-box">
+            <textarea readonly>${command}</textarea>
+            <button class="copy-button">Copy Command</button>
+          </div>
+        </div>
+      `;
+    }).join('');
+
+    document.querySelectorAll('.copy-button').forEach((button, i) => {
+      const textarea = button.previousElementSibling;
+      button.addEventListener('click', () => {
+        textarea.select();
+        document.execCommand('copy');
+        button.textContent = 'Copied!';
+        setTimeout(() => button.textContent = 'Copy Command', 1500);
+      });
+    });
+
+  } catch (error) {
+    console.error('Error loading files:', error);
+    downloadsList.innerHTML = `<div class="error">Unable to load file list.</div>`;
+  }
+}
+
+loadDownloads();
+</script>
+</body>
+</html>
+
