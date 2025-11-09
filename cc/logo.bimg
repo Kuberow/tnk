@@ -1,0 +1,34 @@
+{
+  {
+    {
+      "\x20\x8f\x8f\x8f\x8f\x8f\x8f\x20",
+      "0ffffff0",
+      "f555999f",
+    },
+    {
+      "\x20\x83\x83\x20\x20\x83\x83\x20",
+      "055dd990",
+      "fdd59bbf",
+    },
+    {
+      "---\x20\x20\x20\x20\x20",
+      "fffdd000",
+      "fff59fff",
+    },
+    {
+      "--\x20\x20\x20\x20\x20\x20",
+      "ff0dd000",
+      "fff59fff",
+    },
+    {
+      "\x20\x20\x20\x8f\x8f\x20\x20\x20",
+      "000db000",
+      "ffffffff",
+    },
+  },
+  version = "0.1",
+  creator = "Kuberow",
+  width = 8,
+  height = 5,
+  animated = false,
+}
